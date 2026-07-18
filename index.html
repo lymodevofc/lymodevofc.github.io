@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lymo — Browser & Music</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --lime: #32CD32;
+      --lime-dim: #1fa81f;
+      --lime-glow: rgba(50,205,50,0.15);
+      --bg: #0e0e0e;
+      --surface: #161616;
+      --surface2: #1f1f1f;
+      --border: #2a2a2a;
+      --text: #e8e8e8;
+      --muted: #777;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 48px;
+      background: rgba(14,14,14,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--lime);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(50,205,50,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border: 1px solid var(--lime-dim);
+      background: var(--lime-glow);
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--lime);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--lime);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+    }
+
+    h1 span { color: var(--lime); }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 48px;
+      font-weight: 400;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--lime);
+      color: #000;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-primary:hover { background: #28b428; transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      text-decoration: none;
+      background: var(--surface);
+      transition: border-color 0.2s, transform 0.1s;
+    }
+
+    .btn-secondary:hover { border-color: var(--lime); transform: translateY(-1px); }
+
+    .apps {
+      padding: 100px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--lime);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 64px;
+    }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .app-card {
+      background: var(--surface);
+      padding: 48px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .app-card:hover { border-color: var(--lime-dim); }
+
+    .app-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--lime);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.3s;
+    }
+
+    .app-card:hover::after { transform: scaleY(1); }
+
+    .app-icon {
+      width: 48px; height: 48px;
+      background: var(--lime-glow);
+      border: 1px solid var(--lime-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+
+    .app-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .app-version {
+      font-size: 12px;
+      color: var(--lime);
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 16px;
+    }
+
+    .app-desc {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .app-features {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .feature::before {
+      content: '→';
+      color: var(--lime);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .app-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: var(--lime);
+      color: #000;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.2s;
+    }
+
+    .app-download:hover { background: #28b428; }
+
+    .app-meta {
+      margin-top: 16px;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+
+    .stats {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 60px 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 0 32px;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--lime);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    footer {
+      padding: 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--lime);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .apps { padding: 60px 24px; }
+      .apps-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; gap: 32px; }
+      .stat { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 32px; }
+      .stat:last-child { border-bottom: none; }
+      footer { flex-direction: column; gap: 24px; text-align: center; padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">LYMO</div>
+  <div class="nav-links">
+    <a href="#apps">Apps</a>
+    <a href="https://github.com/lymodevofc" target="_blank">GitHub</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">v1.0.0 — Windows</div>
+  <h1>LYMO<br/><span>APPS</span></h1>
+  <p class="hero-sub">Your browser, your music player. Completely free, completely yours.</p>
+  <div class="hero-ctas">
+    <a href="#apps" class="btn-primary">↓ Download</a>
+    <a href="https://github.com/lymodevofc" target="_blank" class="btn-secondary">GitHub →</a>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number">2</div>
+    <div class="stat-label">Apps</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">$0</div>
+    <div class="stat-label">Completely Free</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">Win</div>
+    <div class="stat-label">Windows Support</div>
+  </div>
+</div>
+
+<section class="apps" id="apps">
+  <div class="section-label">// Apps</div>
+  <div class="section-title">What Are You Downloading?</div>
+
+  <div class="apps-grid">
+
+    <div class="app-card">
+      <div class="app-icon">🌐</div>
+      <div class="app-name">Lymo Browser</div>
+      <div class="app-version">v1.0.0</div>
+      <p class="app-desc">A fast, customizable browser with a lime green identity. Ad blocking, vertical tabs, ambiance mode and more.</p>
+      <div class="app-features">
+        <div class="feature">Ad blocker (Ghostery + EasyList)</div>
+        <div class="feature">Vertical tab panel</div>
+        <div class="feature">Ambiance mode</div>
+        <div class="feature">Download manager</div>
+        <div class="feature">Built-in chat system</div>
+        <div class="feature">Dark / Light theme</div>
+      </div>
+      <a href="https://github.com/lymodevofc/lymo-browser/releases/latest/download/Lymo.Setup.1.0.0.exe" class="app-download">↓ Download — Windows</a>
+      <div class="app-meta">Electron based · ~150MB</div>
+    </div>
+
+    <div class="app-card">
+      <div class="app-icon">🎵</div>
+      <div class="app-name">Lymo Music</div>
+      <div class="app-version">v1.0.0</div>
+      <p class="app-desc">Folder-based offline music player. Enjoy your music with a spinning lemon animation, playlist system and clean UI.</p>
+      <div class="app-features">
+        <div class="feature">Auto-scan music from folder</div>
+        <div class="feature">Create and manage playlists</div>
+        <div class="feature">Spinning lemon animation</div>
+        <div class="feature">Album art support</div>
+        <div class="feature">Rotary volume knob</div>
+        <div class="feature">Song search</div>
+      </div>
+      <a href="https://github.com/lymodevofc/lymo-music-player/releases/latest/download/Lymo.Music.Player.Setup.1.0.0.exe" class="app-download">↓ Download — Windows</a>
+      <div class="app-meta">Electron based · ~120MB</div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">LYMO</div>
+  <div class="footer-links">
+    <a href="https://github.com/lymodevofc/lymo-browser" target="_blank">Browser Repo</a>
+    <a href="https://github.com/lymodevofc/lymo-music-player" target="_blank">Music Repo</a>
+    <a href="https://github.com/lymodevofc" target="_blank">GitHub</a>
+  </div>
+  <div class="footer-copy">© 2026 Lymo</div>
+</footer>
+
+</body>
+</html>
