@@ -59,7 +59,6 @@
       font-size: 14px;
       font-weight: 500;
       transition: color 0.2s;
-      letter-spacing: 0.02em;
     }
     .nav-links a:hover { color: var(--text); }
 
@@ -128,7 +127,6 @@
       color: var(--muted);
       max-width: 480px;
       margin: 0 auto 48px;
-      font-weight: 400;
     }
 
     .hero-ctas {
@@ -171,138 +169,6 @@
 
     .btn-secondary:hover { border-color: var(--lime); transform: translateY(-1px); }
 
-    .apps {
-      padding: 100px 48px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      color: var(--lime);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-family: 'Space Mono', monospace;
-      font-size: clamp(28px, 4vw, 42px);
-      font-weight: 700;
-      letter-spacing: -1px;
-      margin-bottom: 64px;
-    }
-
-    .apps-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
-
-    .app-card {
-      background: var(--surface);
-      padding: 48px;
-      border: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
-
-    .app-card:hover { border-color: var(--lime-dim); }
-
-    .app-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px; height: 100%;
-      background: var(--lime);
-      transform: scaleY(0);
-      transform-origin: top;
-      transition: transform 0.3s;
-    }
-
-    .app-card:hover::after { transform: scaleY(1); }
-
-    .app-icon {
-      width: 48px; height: 48px;
-      background: var(--lime-glow);
-      border: 1px solid var(--lime-dim);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      margin-bottom: 24px;
-    }
-
-    .app-name {
-      font-family: 'Space Mono', monospace;
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.5px;
-    }
-
-    .app-version {
-      font-size: 12px;
-      color: var(--lime);
-      font-family: 'Space Mono', monospace;
-      margin-bottom: 16px;
-    }
-
-    .app-desc {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.7;
-      margin-bottom: 32px;
-    }
-
-    .app-features {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 36px;
-    }
-
-    .feature {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .feature::before {
-      content: '→';
-      color: var(--lime);
-      font-family: 'Space Mono', monospace;
-      font-size: 12px;
-      flex-shrink: 0;
-    }
-
-    .app-download {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 24px;
-      background: var(--lime);
-      color: #000;
-      font-weight: 700;
-      font-size: 14px;
-      text-decoration: none;
-      font-family: 'Space Grotesk', sans-serif;
-      transition: background 0.2s;
-    }
-
-    .app-download:hover { background: #28b428; }
-
-    .app-meta {
-      margin-top: 16px;
-      font-size: 12px;
-      color: var(--muted);
-      font-family: 'Space Mono', monospace;
-    }
-
     .stats {
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -333,8 +199,177 @@
     .stat-label {
       font-size: 13px;
       color: var(--muted);
-      letter-spacing: 0.05em;
     }
+
+    /* APP SECTIONS */
+    .app-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 100px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .app-section:last-of-type { border-bottom: none; }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--lime);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .app-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .app-title-block { flex: 1; }
+
+    .app-name {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+
+    .app-version {
+      font-size: 12px;
+      color: var(--lime);
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 16px;
+    }
+
+    .app-desc {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 520px;
+      margin-bottom: 24px;
+    }
+
+    .app-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+      margin-bottom: 32px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .feature::before {
+      content: '→';
+      color: var(--lime);
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .app-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--lime);
+      color: #000;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: background 0.2s;
+    }
+
+    .app-download:hover { background: #28b428; }
+
+    .app-meta {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* SCREENSHOTS */
+    .screenshots {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      margin-top: 48px;
+    }
+
+    .screenshots img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      object-position: top;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .screenshots img:hover {
+      border-color: var(--lime-dim);
+      transform: scale(1.01);
+      z-index: 1;
+      position: relative;
+    }
+
+    .screenshots img.featured {
+      grid-column: span 2;
+      height: 380px;
+    }
+
+    .music-screenshot {
+      width: 100%;
+      margin-top: 48px;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+
+    .music-screenshot:hover { border-color: var(--lime-dim); }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .lightbox.active { display: flex; }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: 90vh;
+      border: 1px solid var(--border);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px; right: 32px;
+      font-size: 32px;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: 'Space Mono', monospace;
+      line-height: 1;
+    }
+
+    .lightbox-close:hover { color: var(--text); }
 
     footer {
       padding: 48px;
@@ -353,18 +388,13 @@
       color: var(--lime);
     }
 
-    .footer-links {
-      display: flex;
-      gap: 24px;
-    }
-
+    .footer-links { display: flex; gap: 24px; }
     .footer-links a {
       color: var(--muted);
       text-decoration: none;
       font-size: 13px;
       transition: color 0.2s;
     }
-
     .footer-links a:hover { color: var(--text); }
 
     .footer-copy {
@@ -376,9 +406,12 @@
     @media (max-width: 768px) {
       nav { padding: 16px 24px; }
       .nav-links { display: none; }
-      .apps { padding: 60px 24px; }
-      .apps-grid { grid-template-columns: 1fr; }
-      .stats { grid-template-columns: 1fr; gap: 32px; }
+      .app-section { padding: 60px 24px; }
+      .screenshots { grid-template-columns: 1fr; }
+      .screenshots img.featured { grid-column: span 1; height: 220px; }
+      .screenshots img { height: 180px; }
+      .app-features { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: 1fr; gap: 32px; padding: 40px 24px; }
       .stat { border-right: none; border-bottom: 1px solid var(--border); padding-bottom: 32px; }
       .stat:last-child { border-bottom: none; }
       footer { flex-direction: column; gap: 24px; text-align: center; padding: 32px 24px; }
@@ -390,7 +423,8 @@
 <nav>
   <div class="nav-logo">LYMO</div>
   <div class="nav-links">
-    <a href="#apps">Apps</a>
+    <a href="#browser">Browser</a>
+    <a href="#music">Music</a>
     <a href="https://github.com/lymodevofc" target="_blank">GitHub</a>
   </div>
 </nav>
@@ -400,7 +434,7 @@
   <h1>LYMO<br/><span>APPS</span></h1>
   <p class="hero-sub">Your browser, your music player. Completely free, completely yours.</p>
   <div class="hero-ctas">
-    <a href="#apps" class="btn-primary">↓ Download</a>
+    <a href="#browser" class="btn-primary">↓ Download</a>
     <a href="https://github.com/lymodevofc" target="_blank" class="btn-secondary">GitHub →</a>
   </div>
 </section>
@@ -420,31 +454,43 @@
   </div>
 </div>
 
-<section class="apps" id="apps">
-  <div class="section-label">// Apps</div>
-  <div class="section-title">What Are You Downloading?</div>
-
-  <div class="apps-grid">
-
-    <div class="app-card">
-      <div class="app-icon">🌐</div>
+<!-- BROWSER -->
+<section class="app-section" id="browser">
+  <div class="section-label">// 01 — Browser</div>
+  <div class="app-header">
+    <div class="app-title-block">
       <div class="app-name">Lymo Browser</div>
       <div class="app-version">v1.0.0</div>
-      <p class="app-desc">A fast, customizable browser with a lime green identity. Ad blocking, vertical tabs, ambiance mode and more.</p>
+      <p class="app-desc">A fast, customizable Electron-based browser with a lime green identity. Built from scratch with the features that actually matter.</p>
       <div class="app-features">
         <div class="feature">Ad blocker (Ghostery + EasyList)</div>
         <div class="feature">Vertical tab panel</div>
         <div class="feature">Ambiance mode</div>
         <div class="feature">Download manager</div>
-        <div class="feature">Built-in chat system</div>
+        <div class="feature">Built-in chat (DM + Groups)</div>
         <div class="feature">Dark / Light theme</div>
+        <div class="feature">History & tab previews</div>
+        <div class="feature">Custom new tab page</div>
       </div>
       <a href="https://github.com/lymodevofc/lymo-browser/releases/latest/download/Lymo.Setup.1.0.0.exe" class="app-download">↓ Download — Windows</a>
-      <div class="app-meta">Electron based · ~150MB</div>
+      <div class="app-meta">Electron based · ~150MB · Free forever</div>
     </div>
+  </div>
 
-    <div class="app-card">
-      <div class="app-icon">🎵</div>
+  <div class="screenshots">
+    <img src="image1.png" class="featured" alt="Lymo Browser Home" onclick="openLight(this.src)" />
+    <img src="image2.png" alt="Lymo Browser Discord" onclick="openLight(this.src)" />
+    <img src="image3.png" alt="Lymo Browser Chat" onclick="openLight(this.src)" />
+    <img src="image4.png" alt="Lymo Browser Screenshot 4" onclick="openLight(this.src)" />
+    <img src="image5.png" alt="Lymo Browser Screenshot 5" onclick="openLight(this.src)" />
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section class="app-section" id="music">
+  <div class="section-label">// 02 — Music</div>
+  <div class="app-header">
+    <div class="app-title-block">
       <div class="app-name">Lymo Music</div>
       <div class="app-version">v1.0.0</div>
       <p class="app-desc">Folder-based offline music player. Enjoy your music with a spinning lemon animation, playlist system and clean UI.</p>
@@ -457,10 +503,11 @@
         <div class="feature">Song search</div>
       </div>
       <a href="https://github.com/lymodevofc/lymo-music-player/releases/latest/download/Lymo.Music.Player.Setup.1.0.0.exe" class="app-download">↓ Download — Windows</a>
-      <div class="app-meta">Electron based · ~120MB</div>
+      <div class="app-meta">Electron based · ~120MB · Free forever</div>
     </div>
-
   </div>
+
+  <img src="musicplayerimage.png" alt="Lymo Music Player" class="music-screenshot" onclick="openLight(this.src)" />
 </section>
 
 <footer>
@@ -472,6 +519,23 @@
   </div>
   <div class="footer-copy">© 2026 Lymo</div>
 </footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLight()">
+  <div class="lightbox-close" onclick="closeLight()">×</div>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" />
+</div>
+
+<script>
+  function openLight(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('active');
+  }
+  function closeLight() {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLight(); });
+</script>
 
 </body>
 </html>
